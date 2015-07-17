@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="index">
+<head>
+	<meta charset="UTF-8">
+	<title>To Do List</title>
+	<style>
+		.log{
+			margin:0 auto;
+			width:1000px;
+			height:40px;
+			background: blue;
+			text-align:center;
+			line-height: 40px;
+		}
+		.text{
+			width:600px;
+			height:40px;
+		}
+		.content{
+			width:700px;
+			margin:0 auto;
+		}
+		.content button{
+		    height:40px;
+		}
+              .content ul .all{
+                  list-style:none;
+                  height:30px;
+                  width:600px;
+                  margin-top:5px;
+              }
+              .content ul button{
+                  height:30px;
+                  width:100px;
+              }
+              .content ul li{
+                  list-style:none;
+                  height:30px;
+                  width:500px;
+                  background: lightblue;
+                  margin-top:5px;
+              }
+              .selected{
+                  width:30px;
+                  height:30px;
+                  background: green;
+                  float:left;
+                  content:"gou";
+              }
+              .default{
+                  width:30px;
+                  height:30px;
+                  background: red;
+                  float:left;
+              }
+	</style>
+</head>
+<body>
+	<div  class="log">ListToDo</div>
+        <div class="content" ng-controller="indexController">
+    	     <input class="text" type="text"  ng-model="data" ng-keypress="enter($event)"/>
+            <button ng-click="addList(data)">click</button>
+            <ul ng-mouseout="hideDel()">
+                <div class="all" ng-repeat="list in lists" ng-mouseover="showDel(list)"  >
+                  <li ng-click="selectOne($index)">
+                    {{list.content}} 
+                    <div ng-class='{default:list.finish===0,selected:list.finish===1}'></div>
+                    <span style="font-size:10px;float:right;line-height:30px;">
+                      {{list.time | date : 'yyyy-MM-dd HH:mm:ss'}}
+                    </span>
+                  </li>
+                  <div style="float:right;margin-top:-30px;">
+                    <button ng-show="{{list.id}}===choose" ng-click="del($index)">删除</button>
+                  </div>
+                </div>
+                
+            </ul>
+            <button ng-click="clear()">clear</button>
+      </div>
+</body>
+<script src="js/angular.min.js"></script>
+<script src="js/module.js"></script>
+<script src="js/controllers/indexController.js"></script>
+<script src="js/directives/indexDirective.js"></script>
+</html>

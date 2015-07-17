@@ -1,0 +1,63 @@
+index.controller('indexController',function($scope){
+        $scope.name = '';
+        $scope.isShow = false;
+        $scope.status = false;
+        
+        var lists = localStorage.getItem('lists');
+        //获取list数据
+        $scope.lists = lists ? angular.fromJson(lists) : [];
+        //enter提交
+        $scope.enter = function(ev){
+            if(ev.keyCode !== 13){
+                return;
+            }
+            $scope.addList();
+        }
+        //add
+        $scope.addList = function(){
+            var str = $scope.data;
+                if(str!=""&&str!=null){
+                    $scope.lists.push({id:$scope.lists.length+1,content:$scope.data,time:getTime(),finish:0});
+                    $scope.data = '';
+                    $scope.upload();
+                }
+        };
+        //remove
+        $scope.showDel  = function(list){
+            $scope.choose = list.id;
+        };
+        $scope.hideDel  = function(){
+            $scope.choose = 0;
+        };
+        $scope.del = function(num){
+            console.log(num);
+            $scope.lists.splice(num,1);
+            $scope.upload();
+        }
+        //upload to localStorage
+        $scope.upload = function(){
+            localStorage.setItem('lists',angular.toJson($scope.lists));
+        }
+        //delete all
+        $scope.clear = function(){
+            localStorage.clear();
+            window.location.href="index3.html";
+        }
+        //get time
+        function getTime(){
+            var time= new Date();
+            return time;
+        }
+        //--------------changeCSS----------------------
+        $scope.selectOne = function(num){
+            console.log(num);
+            var record = $scope.lists[num];
+            if(record.finish===0){
+                record.finish = 1;
+            }else{
+                record.finish = 0;
+            }
+            $scope.lists.splice(num,1,record);
+            $scope.upload();
+        }
+});
