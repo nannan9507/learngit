@@ -7,15 +7,15 @@ index.controller('indexController', function($scope) {
     var lists = localStorage.getItem('lists');
 
     //explain lists
-    $scope.lists = lists ? angular.fromJson(lists) : [ ];
+    $scope.lists = lists? angular.fromJson(lists) : [ ];
 
     //add by enter
     $scope.enter = function(ev) {
-            if (ev.keyCode !== 13){
-                return ;
-            }
+        if (ev.keyCode !== 13) {
+            return ;
+        }
 
-            $scope.addList();
+        $scope.addList();
     }
 
     //add data
@@ -40,7 +40,7 @@ index.controller('indexController', function($scope) {
         }
 
         //del the data
-        $scope.del = function(num){
+        $scope.del = function(num) {
             $scope.lists.splice(num, 1);
             $scope.upload();
         }
@@ -59,7 +59,7 @@ index.controller('indexController', function($scope) {
         //get the time
         function getTime() {
             var time = new Date();
-
+            
             return time;
         }
 
